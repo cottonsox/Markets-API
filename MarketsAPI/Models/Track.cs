@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketsAPI.Models
 {
-    class Track
+    public class Track
     {
         public Guid id { get; set; }
     }

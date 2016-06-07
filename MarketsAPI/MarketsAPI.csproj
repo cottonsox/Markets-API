@@ -127,9 +127,20 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HorseController.cs" />
+    <Compile Include="Controllers\IMaintainable.cs" />
+    <Compile Include="Controllers\JockeyController.cs" />
+    <Compile Include="Controllers\RaceController.cs" />
+    <Compile Include="Controllers\RaceHorseController.cs" />
+    <Compile Include="Controllers\RaceMeetController.cs" />
+    <Compile Include="Controllers\TrackController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="DAL\MarketsContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606071222224_initial.cs" />
+    <Compile Include="Migrations\201606071222224_initial.Designer.cs">
+      <DependentUpon>201606071222224_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Horse.cs" />
@@ -155,6 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606071222224_initial.resx">
+      <DependentUpon>201606071222224_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
