@@ -1,4 +1,4 @@
-namespace Markets.Migrations
+namespace MarketsAPI.Migrations
 {
     using System;
     using System.Data.Entity;

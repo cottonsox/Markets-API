@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
 
-namespace Markets.Controllers
+namespace MarketsAPI.Controllers
 {
     public class JockeyController : ApiController
     {
