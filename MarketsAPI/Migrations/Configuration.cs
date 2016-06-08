@@ -39,13 +39,12 @@ namespace Markets.Migrations
 
             context.Tracks.AddOrUpdate(
                 T => T.Name,
-                new Track { Name = "Launceston", State = "TAS",Surface = Surface.Turf},
+                new Track { Name = "Launceston", State = "TAS", Surface = Surface.Turf },
                 new Track { Name = "Hobart", State = "TAS", Surface = Surface.Turf },
-                new Track { Name = "Spreyton", State = "TAS", Surface = Surface.Tapeta},
+                new Track { Name = "Spreyton", State = "TAS", Surface = Surface.Tapeta },
                 new Track { Name = "Morphetville", State = "SA", Surface = Surface.Turf }
 
-
-                )
+                );
         }
     }
 }
