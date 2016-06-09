@@ -15,46 +15,45 @@ using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
-    public class RaceMeetController : ApiController
+    public class RaceResultController : ApiController
     {
         private MarketsContext db = new MarketsContext();
 
-        // GET: api/RaceMeet
+        // GET: api/RaceResult
         [HttpGet]
-        [Route("RaceMeets")]
-        public string GetRaceMeets()
+        [Route("RaceResult")]
+        public string GetRaceResults()
         {
-            return SerialiseRaceMeets(db.RaceMeets);
+            return SerialiseRaceResult(db.RaceResult);
         }
 
-        // GET: api/RaceMeet/5
+        // GET: api/RaceResult/5
         [HttpGet]
-        [ResponseType(typeof(RaceMeet))]
-        [Route("RaceMeets/{id}")]
-        public async Task<IHttpActionResult> GetRaceMeet(Guid id)
+        [ResponseType(typeof(RaceResult))]
+        [Route("RaceResult/{id}")]
+        public async Task<IHttpActionResult> GetRaceResult(Guid id)
         {
-            RaceMeet raceMeet = await db.RaceMeets.FindAsync(id);
-            if (raceMeet == null)
+            RaceResult RaceResult = await db.RaceResult.FindAsync(id);
+            if (RaceResult == null)
             {
                 return NotFound();
             }
 
-            return Ok(raceMeet);
+            return Ok(RaceResult);
         }
 
-        // PUT: api/RaceMeet/5
+        // PUT: api/RaceResult/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("RaceMeets/{id}")]
-        public async Task<IHttpActionResult> PutRaceMeet([FromBody] RaceMeet RaceMeet)
+        [Route("RaceResult/{id}")]
+        public async Task<IHttpActionResult> PutRaceResult([FromBody] RaceResult RaceResult)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-
-            db.Entry(RaceMeet).State = EntityState.Modified;
+            db.Entry(RaceResult).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RaceMeetExists(RaceMeet.Id))
+                if (!RaceResultExists(RaceResult.Id))
                 {
                     return NotFound();
                 }
@@ -75,18 +74,18 @@ namespace MarketsAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/RaceMeet
+        // POST: api/RaceResult
         [HttpPost]
-        [ResponseType(typeof(RaceMeet))]
-        [Route("RaceMeets/{id}")]
-        public async Task<IHttpActionResult> PostRaceMeet([FromBody] RaceMeet RaceMeet)
+        [ResponseType(typeof(RaceResult))]
+        [Route("RaceResult/{id}")]
+        public async Task<IHttpActionResult> PostRaceResult([FromBody] RaceResult RaceResult)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.RaceMeets.Add(RaceMeet);
+            db.RaceResult.Add(RaceResult);
 
             try
             {
@@ -94,7 +93,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (RaceMeetExists(RaceMeet.Id))
+                if (RaceResultExists(RaceResult.Id))
                 {
                     return Conflict();
                 }
@@ -104,35 +103,36 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = RaceMeet.Id }, RaceMeet);
+            return CreatedAtRoute("DefaultApi", new { id = RaceResult.Id }, RaceResult);
         }
 
-        // DELETE: api/RaceMeet/5
+        // DELETE: api/RaceResult/5
         [HttpDelete]
-        [ResponseType(typeof(RaceMeet))]
-        [Route("RaceMeets/{id}")]
-        public async Task<IHttpActionResult> DeleteRaceMeet(Guid id)
+        [ResponseType(typeof(RaceResult))]
+        [Route("RaceResult/{id}")]
+        public async Task<IHttpActionResult> DeleteRaceResult(Guid Id)
         {
-            RaceMeet raceMeet = await db.RaceMeets.FindAsync(id);
-            if (raceMeet == null)
+            RaceResult RaceResult = await db.RaceResult.FindAsync(Id);
+            if (RaceResult == null)
             {
                 return NotFound();
             }
 
-            db.RaceMeets.Remove(raceMeet);
+            db.RaceResult.Remove(RaceResult);
             await db.SaveChangesAsync();
 
-            return Ok(raceMeet);
+            return Ok(RaceResult);
         }
 
-        private bool RaceMeetExists(Guid id)
+
+        private bool RaceResultExists(Guid Id)
         {
-            return db.RaceMeets.Count(e => e.Id == id) > 0;
+            return db.RaceResult.Count(e => e.Id == Id) > 0;
         }
 
-        private string SerialiseRaceMeets(IEnumerable<RaceMeet> RaceMeet)
+        private string SerialiseRaceResult(IEnumerable<RaceResult> RaceResults)
         {
-            return JsonConvert.SerializeObject(RaceMeet);
+            return JsonConvert.SerializeObject(RaceResults);
         }
     }
 }

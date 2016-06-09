@@ -11,7 +11,7 @@ namespace MarketsAPI.Models
 
     public class Track
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         public String Name { get; set; }
         public String Code { get; set; }
         public State State { get; set; }

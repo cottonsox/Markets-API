@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
+using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
@@ -21,14 +22,17 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Jockey
         [HttpGet]
-        public IQueryable<Jockey> GetJockeys()
+        [Route("Jockey")]
+        public string GetJockeys()
         {
-            return db.Jockeys;
+            
+            return SerialiseRaceJockeys(db.Jockeys);
         }
 
         // GET: api/Jockey/5
         [HttpGet]
         [ResponseType(typeof(Jockey))]
+        [Route("Jockey/{id}")]
         public async Task<IHttpActionResult> GetJockey(Guid id)
         {
             Jockey jockey = await db.Jockeys.FindAsync(id);
@@ -43,16 +47,12 @@ namespace MarketsAPI.Controllers
         // PUT: api/Jockey/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutJockey(Guid id, Jockey jockey)
+        [Route("Jockey/{id}")]
+        public async Task<IHttpActionResult> PutJockey([FromBody] Jockey jockey)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != jockey.id)
-            {
-                return BadRequest();
             }
 
             db.Entry(jockey).State = EntityState.Modified;
@@ -63,7 +63,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!JockeyExists(id))
+                if (!JockeyExists(jockey.Id))
                 {
                     return NotFound();
                 }
@@ -79,7 +79,8 @@ namespace MarketsAPI.Controllers
         // POST: api/Jockey
         [HttpPost]
         [ResponseType(typeof(Jockey))]
-        public async Task<IHttpActionResult> PostJockey(Jockey jockey)
+        [Route("Jockey/{id}")]
+        public async Task<IHttpActionResult> PostJockey([FromBody] Jockey jockey)
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +95,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (JockeyExists(jockey.id))
+                if (JockeyExists(jockey.Id))
                 {
                     return Conflict();
                 }
@@ -104,15 +105,16 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = jockey.id }, jockey);
+            return CreatedAtRoute("DefaultApi", new { id = jockey.Id }, jockey);
         }
 
         // DELETE: api/Jockey/5
         [HttpDelete]
         [ResponseType(typeof(Jockey))]
-        public async Task<IHttpActionResult> DeleteJockey(Guid id)
+        [Route("Jockey/{id}")]
+        public async Task<IHttpActionResult> DeleteJockey(Guid Id)
         {
-            Jockey jockey = await db.Jockeys.FindAsync(id);
+            Jockey jockey = await db.Jockeys.FindAsync(Id);
             if (jockey == null)
             {
                 return NotFound();
@@ -124,18 +126,14 @@ namespace MarketsAPI.Controllers
             return Ok(jockey);
         }
 
-        protected override void Dispose(bool disposing)
+        private bool JockeyExists(Guid Id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return db.Jockeys.Count(e => e.Id == Id) > 0;
         }
 
-        private bool JockeyExists(Guid id)
+        private string SerialiseRaceJockeys(IEnumerable<Jockey> Jockeys)
         {
-            return db.Jockeys.Count(e => e.id == id) > 0;
+            return JsonConvert.SerializeObject(Jockeys);
         }
     }
 }

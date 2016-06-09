@@ -31,9 +31,9 @@ namespace MarketsAPI.Controllers
         [HttpGet]
         [ResponseType(typeof(Horse))]
         [Route("Horse/{id}")]
-        public async Task<IHttpActionResult> GetHorse(Guid id)
+        public async Task<IHttpActionResult> GetHorse(Guid Id)
         {
-            Horse horse = await db.Horses.FindAsync(id);
+            Horse horse = await db.Horses.FindAsync(Id);
             if (horse == null)
             {
                 return NotFound();
@@ -46,14 +46,14 @@ namespace MarketsAPI.Controllers
         [HttpPut]
         [ResponseType(typeof(void))]
         [Route("Horse/{id}")]
-        public async Task<IHttpActionResult> PutHorse([FromBody] Horse horse)
+        public async Task<IHttpActionResult> PutHorse([FromBody] Horse Horse)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Entry(horse).State = EntityState.Modified;
+            db.Entry(Horse).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HorseExists(horse.Id))
+                if (!HorseExists(Horse.Id))
                 {
                     return NotFound();
                 }
@@ -78,14 +78,14 @@ namespace MarketsAPI.Controllers
         [HttpPost]
         [ResponseType(typeof(Horse))]
         [Route("Horse")]
-        public async Task<IHttpActionResult> PostHorse([FromBody] Horse horse)
+        public async Task<IHttpActionResult> PostHorse([FromBody] Horse Horse)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Horses.Add(horse);
+            db.Horses.Add(Horse);
 
             try
             {
@@ -93,7 +93,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (HorseExists(horse.Id))
+                if (HorseExists(Horse.Id))
                 {
                     return Conflict();
                 }
@@ -103,16 +103,16 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = horse.Id }, horse);
+            return CreatedAtRoute("DefaultApi", new { id = Horse.Id }, Horse);
         }
 
         // DELETE: api/Horse/5
         [HttpDelete]
         [ResponseType(typeof(Horse))]
         [Route("Horse/{id}")]
-        public async Task<IHttpActionResult> DeleteHorse(Guid id)
+        public async Task<IHttpActionResult> DeleteHorse(Guid Id)
         {
-            Horse horse = await db.Horses.FindAsync(id);
+            Horse horse = await db.Horses.FindAsync(Id);
             if (horse == null)
             {
                 return NotFound();
@@ -129,9 +129,9 @@ namespace MarketsAPI.Controllers
             return db.Horses.Count(e => e.Id == id) > 0;
         }
         
-        private string SerialiseHorses(IEnumerable<Horse> horses)
+        private string SerialiseHorses(IEnumerable<Horse> Horses)
         {
-            return JsonConvert.SerializeObject(horses);
+            return JsonConvert.SerializeObject(Horses);
         }
     }
 }

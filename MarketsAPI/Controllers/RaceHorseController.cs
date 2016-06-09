@@ -11,6 +11,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
+using Newtonsoft.Json;
+
 
 namespace MarketsAPI.Controllers
 {
@@ -20,17 +22,19 @@ namespace MarketsAPI.Controllers
 
         // GET: api/RaceHorse
         [HttpGet]
-        public IQueryable<RaceHorse> GetRaceHorses()
-        {
-            return db.RaceHorses;
+        [Route("RaceHorse")]
+        public string GetRaceHorses()
+        {            
+            return SerialiseRaceHorse(db.RaceHorses);
         }
 
         // GET: api/RaceHorse/5
         [HttpGet]
         [ResponseType(typeof(RaceHorse))]
-        public async Task<IHttpActionResult> GetRaceHorse(Guid id)
+        [Route("RaceHorse/{id}")]
+        public async Task<IHttpActionResult> GetRaceHorse(Guid Id)
         {
-            RaceHorse raceHorse = await db.RaceHorses.FindAsync(id);
+            RaceHorse raceHorse = await db.RaceHorses.FindAsync(Id);
             if (raceHorse == null)
             {
                 return NotFound();
@@ -42,19 +46,15 @@ namespace MarketsAPI.Controllers
         // PUT: api/RaceHorse/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRaceHorse(Guid id, RaceHorse raceHorse)
+        [Route("RaceHorse/{id}")]
+        public async Task<IHttpActionResult> PutRaceHorse([FromBody] RaceHorse RaceHorse)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != raceHorse.id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(raceHorse).State = EntityState.Modified;
+            db.Entry(RaceHorse).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +62,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RaceHorseExists(id))
+                if (!RaceHorseExists(RaceHorse.id))
                 {
                     return NotFound();
                 }
@@ -78,14 +78,15 @@ namespace MarketsAPI.Controllers
         // POST: api/RaceHorse
         [HttpPost]
         [ResponseType(typeof(RaceHorse))]
-        public async Task<IHttpActionResult> PostRaceHorse(RaceHorse raceHorse)
+        [Route("RaceHorse/{id}")]
+        public async Task<IHttpActionResult> PostRaceHorse([FromBody] RaceHorse RaceHorse)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.RaceHorses.Add(raceHorse);
+            db.RaceHorses.Add(RaceHorse);
 
             try
             {
@@ -93,7 +94,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (RaceHorseExists(raceHorse.id))
+                if (RaceHorseExists(RaceHorse.id))
                 {
                     return Conflict();
                 }
@@ -103,15 +104,16 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = raceHorse.id }, raceHorse);
+            return CreatedAtRoute("DefaultApi", new { id = RaceHorse.id }, RaceHorse);
         }
 
         // DELETE: api/RaceHorse/5
         [HttpDelete]
         [ResponseType(typeof(RaceHorse))]
-        public async Task<IHttpActionResult> DeleteRaceHorse(Guid id)
+        [Route("RaceHorse/{id}")]
+        public async Task<IHttpActionResult> DeleteRaceHorse(Guid Id)
         {
-            RaceHorse raceHorse = await db.RaceHorses.FindAsync(id);
+            RaceHorse raceHorse = await db.RaceHorses.FindAsync(Id);
             if (raceHorse == null)
             {
                 return NotFound();
@@ -123,18 +125,15 @@ namespace MarketsAPI.Controllers
             return Ok(raceHorse);
         }
 
-        protected override void Dispose(bool disposing)
+
+        private bool RaceHorseExists(Guid Id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return db.RaceHorses.Count(e => e.id == Id) > 0;
         }
 
-        private bool RaceHorseExists(Guid id)
+        private string SerialiseRaceHorse(IEnumerable<RaceHorse> Racehorses)
         {
-            return db.RaceHorses.Count(e => e.id == id) > 0;
+            return JsonConvert.SerializeObject(Racehorses);
         }
     }
 }

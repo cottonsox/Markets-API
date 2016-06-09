@@ -10,7 +10,7 @@ namespace MarketsAPI.Models
 
     public class Trainer
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
 

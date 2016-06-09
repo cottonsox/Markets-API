@@ -19,8 +19,7 @@ namespace MarketsAPI.DAL
 
 
         public DbSet<RaceResult> RaceResult { get; set; }
-        public DbSet<RaceSectionals> RaceSectionals { get; set; }
-        public DbSet<RaceSectionalsSection> RaceSectionalsSection { get; set; }
+        public DbSet<RaceSectionals> RaceSectionals { get; set; }       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

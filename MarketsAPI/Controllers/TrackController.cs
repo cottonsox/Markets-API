@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
+using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
@@ -20,14 +21,17 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Track
         [HttpGet]
-        public IQueryable<Track> GetTracks()
+        [Route("Track")]
+        public string GetTracks()
         {
-            return db.Tracks;
+            
+            return SerialiseTracks(db.Tracks);
         }
 
         // GET: api/Track/5
         [HttpGet]
         [ResponseType(typeof(Track))]
+        [Route("Track/{id}")]
         public async Task<IHttpActionResult> GetTrack(Guid id)
         {
             Track track = await db.Tracks.FindAsync(id);
@@ -42,19 +46,15 @@ namespace MarketsAPI.Controllers
         // PUT: api/Track/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTrack(Guid id, Track track)
+        [Route("Track/{id}")]
+        public async Task<IHttpActionResult> PutTrack([FromBody] Track Track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != track.id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(track).State = EntityState.Modified;
+            db.Entry(Track).State = EntityState.Modified;
 
             try
             {
@@ -62,9 +62,9 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrackExists(id))
+                if (!TrackExists(Track.Id))
                 {
-                    return NotFound();
+                    return base.NotFound();
                 }
                 else
                 {
@@ -78,14 +78,15 @@ namespace MarketsAPI.Controllers
         // POST: api/Track
         [HttpPost]
         [ResponseType(typeof(Track))]
-        public async Task<IHttpActionResult> PostTrack(Track track)
+        [Route("Track/{id}")]
+        public async Task<IHttpActionResult> PostTrack(Track Track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Tracks.Add(track);
+            db.Tracks.Add(Track);
 
             try
             {
@@ -93,7 +94,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (TrackExists(track.id))
+                if (TrackExists(Track.Id))
                 {
                     return Conflict();
                 }
@@ -103,15 +104,16 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = track.id }, track);
+            return CreatedAtRoute("DefaultApi", new { id = Track.Id }, Track);
         }
 
         // DELETE: api/Track/5
         [HttpDelete]
         [ResponseType(typeof(Track))]
-        public async Task<IHttpActionResult> DeleteTrack(Guid id)
+        [Route("Track/{id}")]
+        public async Task<IHttpActionResult> DeleteTrack(Guid Id)
         {
-            Track track = await db.Tracks.FindAsync(id);
+            Track track = await db.Tracks.FindAsync(Id);
             if (track == null)
             {
                 return NotFound();
@@ -123,18 +125,15 @@ namespace MarketsAPI.Controllers
             return Ok(track);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         private bool TrackExists(Guid id)
         {
-            return db.Tracks.Count(e => e.id == id) > 0;
+            return db.Tracks.Count(e => e.Id == id) > 0;
+        }
+
+        private string SerialiseTracks(IEnumerable<Track> Tracks)
+        {
+            return JsonConvert.SerializeObject(Tracks);
         }
     }
 }

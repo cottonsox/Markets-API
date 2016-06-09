@@ -11,7 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
-
+using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
@@ -21,17 +21,20 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Trainer
         [HttpGet]
-        public IQueryable<Trainer> GetTrainers()
+        [Route("Trainer")]
+        public string GetTrainers()
         {
-            return db.Trainers;
+            
+            return SerialiseTrainers(db.Trainers);
         }
 
         // GET: api/Trainer/5
         [HttpGet]
         [ResponseType(typeof(Trainer))]
-        public async Task<IHttpActionResult> GetTrainer(Guid id)
+        [Route("Trainer/{id}")]
+        public async Task<IHttpActionResult> GetTrainer(Guid Id)
         {
-            Trainer trainer = await db.Trainers.FindAsync(id);
+            Trainer trainer = await db.Trainers.FindAsync(Id);
             if (trainer == null)
             {
                 return NotFound();
@@ -43,19 +46,16 @@ namespace MarketsAPI.Controllers
         // PUT: api/Trainer/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTrainer(Guid id, Trainer trainer)
+        [Route("Trainer/{id}")]
+        public async Task<IHttpActionResult> PutTrainer([FromBody] Trainer Trainer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != trainer.id)
-            {
-                return BadRequest();
-            }
 
-            db.Entry(trainer).State = EntityState.Modified;
+            db.Entry(Trainer).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +63,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrainerExists(id))
+                if (!TrainerExists(Trainer.Id))
                 {
                     return NotFound();
                 }
@@ -79,14 +79,15 @@ namespace MarketsAPI.Controllers
         // POST: api/Trainer
         [HttpPost]
         [ResponseType(typeof(Trainer))]
-        public async Task<IHttpActionResult> PostTrainer(Trainer trainer)
+        [Route("Trainer/{id}")]
+        public async Task<IHttpActionResult> PostTrainer([FromBody] Trainer Trainer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Trainers.Add(trainer);
+            db.Trainers.Add(Trainer);
 
             try
             {
@@ -94,7 +95,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (TrainerExists(trainer.id))
+                if (TrainerExists(Trainer.Id))
                 {
                     return Conflict();
                 }
@@ -104,15 +105,16 @@ namespace MarketsAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = trainer.id }, trainer);
+            return CreatedAtRoute("DefaultApi", new { id = Trainer.Id }, Trainer);
         }
 
         // DELETE: api/Trainer/5
         [HttpDelete]
         [ResponseType(typeof(Trainer))]
-        public async Task<IHttpActionResult> DeleteTrainer(Guid id)
+        [Route("Trainer/{id}")]
+        public async Task<IHttpActionResult> DeleteTrainer(Guid Id)
         {
-            Trainer trainer = await db.Trainers.FindAsync(id);
+            Trainer trainer = await db.Trainers.FindAsync(Id);
             if (trainer == null)
             {
                 return NotFound();
@@ -124,18 +126,16 @@ namespace MarketsAPI.Controllers
             return Ok(trainer);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
 
         private bool TrainerExists(Guid id)
         {
-            return db.Trainers.Count(e => e.id == id) > 0;
+            return db.Trainers.Count(e => e.Id == id) > 0;
+        }
+
+        private string SerialiseTrainers(IEnumerable<Trainer> Trainers)
+        {
+            return JsonConvert.SerializeObject(Trainers);
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
+using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
@@ -20,14 +21,16 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Race
         [HttpGet]
-        public IQueryable<Race> GetRaces()
+        [Route("Races}")]
+        public string GetRaces()
         {
-            return db.Races;
+            return SerialiseRaces(db.Races);
         }
 
         // GET: api/Race/5
         [HttpGet]
         [ResponseType(typeof(Race))]
+        [Route("Races/{id}")]
         public async Task<IHttpActionResult> GetRace(Guid id)
         {
             Race race = await db.Races.FindAsync(id);
@@ -42,19 +45,15 @@ namespace MarketsAPI.Controllers
         // PUT: api/Race/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRace(Guid id, Race race)
+        [Route("Races/{id}")]
+        public async Task<IHttpActionResult> PutRace([FromBody] Race Race)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != race.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(race).State = EntityState.Modified;
+            db.Entry(Race).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace MarketsAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RaceExists(id))
+                if (!RaceExists(Race.Id))
                 {
                     return NotFound();
                 }
@@ -78,7 +77,8 @@ namespace MarketsAPI.Controllers
         // POST: api/Race
         [HttpPost]
         [ResponseType(typeof(Race))]
-        public async Task<IHttpActionResult> PostRace(Race race)
+        [Route("Races/{id}")]
+        public async Task<IHttpActionResult> PostRace([FromBody] Race race)
         {
             if (!ModelState.IsValid)
             {
@@ -109,6 +109,7 @@ namespace MarketsAPI.Controllers
         // DELETE: api/Race/5
         [HttpDelete]
         [ResponseType(typeof(Race))]
+        [Route("Races/{id}")]
         public async Task<IHttpActionResult> DeleteRace(Guid id)
         {
             Race race = await db.Races.FindAsync(id);
@@ -123,18 +124,15 @@ namespace MarketsAPI.Controllers
             return Ok(race);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         private bool RaceExists(Guid id)
         {
             return db.Races.Count(e => e.Id == id) > 0;
+        }
+
+        private string SerialiseRaces(IEnumerable<Race> Race)
+        {
+            return JsonConvert.SerializeObject(Race);
         }
     }
 }

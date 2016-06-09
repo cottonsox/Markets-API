@@ -8,14 +8,16 @@ namespace MarketsAPI.Models
     public class RaceSectionals
     {
         public Guid Id { get; set; }
-        public Guid HorseId { get; set; }
-        public Guid RaceHorseId { get; set; }
-        public Guid RaceId { get; set; }
+        public Guid RaceResultId { get; set; }
+        
+        public float SectionTime { get; set; }
+        public int SectionStart { get; set; }
+        public int Sectionend { get; set; }
 
 
-        public virtual Race Race { get; set; }
-        public virtual RaceHorse RaceHorse { get; set; }
-        public virtual Horse Horse { get; set; }
+
+
+        public virtual RaceResult RaceResult { get; set; }
 
     }
 }
