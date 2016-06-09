@@ -16,15 +16,18 @@ namespace MarketsAPI.Controllers
 {
     public class JockeyController : ApiController
     {
+        
         private MarketsContext db = new MarketsContext();
 
         // GET: api/Jockey
+        [HttpGet]
         public IQueryable<Jockey> GetJockeys()
         {
             return db.Jockeys;
         }
 
         // GET: api/Jockey/5
+        [HttpGet]
         [ResponseType(typeof(Jockey))]
         public async Task<IHttpActionResult> GetJockey(Guid id)
         {
@@ -38,6 +41,7 @@ namespace MarketsAPI.Controllers
         }
 
         // PUT: api/Jockey/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutJockey(Guid id, Jockey jockey)
         {
@@ -73,6 +77,7 @@ namespace MarketsAPI.Controllers
         }
 
         // POST: api/Jockey
+        [HttpPost]
         [ResponseType(typeof(Jockey))]
         public async Task<IHttpActionResult> PostJockey(Jockey jockey)
         {
@@ -103,6 +108,7 @@ namespace MarketsAPI.Controllers
         }
 
         // DELETE: api/Jockey/5
+        [HttpDelete]
         [ResponseType(typeof(Jockey))]
         public async Task<IHttpActionResult> DeleteJockey(Guid id)
         {

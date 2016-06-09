@@ -19,12 +19,14 @@ namespace MarketsAPI.Controllers
         private MarketsContext db = new MarketsContext();
 
         // GET: api/RaceMeet
+        [HttpGet]
         public IQueryable<RaceMeet> GetRaceMeets()
         {
             return db.RaceMeets;
         }
 
         // GET: api/RaceMeet/5
+        [HttpGet]
         [ResponseType(typeof(RaceMeet))]
         public async Task<IHttpActionResult> GetRaceMeet(Guid id)
         {
@@ -38,6 +40,7 @@ namespace MarketsAPI.Controllers
         }
 
         // PUT: api/RaceMeet/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRaceMeet(Guid id, RaceMeet raceMeet)
         {
@@ -73,6 +76,7 @@ namespace MarketsAPI.Controllers
         }
 
         // POST: api/RaceMeet
+        [HttpPost]
         [ResponseType(typeof(RaceMeet))]
         public async Task<IHttpActionResult> PostRaceMeet(RaceMeet raceMeet)
         {
@@ -103,6 +107,7 @@ namespace MarketsAPI.Controllers
         }
 
         // DELETE: api/RaceMeet/5
+        [HttpDelete]
         [ResponseType(typeof(RaceMeet))]
         public async Task<IHttpActionResult> DeleteRaceMeet(Guid id)
         {

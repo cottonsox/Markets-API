@@ -5,6 +5,7 @@ namespace MarketsAPI.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using MarketsAPI.Models;
+    using MarketsAPI.Enum;
 
 
     internal sealed class Configuration : DbMigrationsConfiguration<MarketsAPI.DAL.MarketsContext>
@@ -39,10 +40,18 @@ namespace MarketsAPI.Migrations
 
             context.Tracks.AddOrUpdate(
                 T => T.Name,
-                new Track { Name = "Launceston", State = "TAS", Surface = Surface.Turf },
-                new Track { Name = "Hobart", State = "TAS", Surface = Surface.Turf },
-                new Track { Name = "Spreyton", State = "TAS", Surface = Surface.Tapeta },
-                new Track { Name = "Morphetville", State = "SA", Surface = Surface.Turf }
+                new Track { Name = "Launceston", State = State.TAS, Surface = TrackSurface.Turf, Code="MOWB"},
+                new Track { Name = "Hobart", State = State.TAS, Surface = TrackSurface.Turf ,Code = "ELWK" },
+                new Track { Name = "Spreyton", State = State.TAS, Surface = TrackSurface.Tapeta,Code = "SPRY" },
+                new Track { Name = "Morphetville", State = State.SA, Surface = TrackSurface.Turf , Code = "MORP" }
+                );
+
+            context.Jockeys.AddOrUpdate(
+                J => J.FirstName,
+                new Jockey { FirstName = "Brendan", Surname = "McCoull", Gender = Gender.Male },
+                new Jockey { FirstName = "David", Surname = "Pires", Gender = Gender.Male },
+                new Jockey { FirstName = "Siggy", Surname = "Carr", Gender = Gender.Female },
+                new Jockey { FirstName = "Damien", Surname = "Oliver", Gender = Gender.Male }
 
                 );
         }

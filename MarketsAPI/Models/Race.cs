@@ -12,8 +12,6 @@ namespace MarketsAPI.Models
         public Guid RaceMeetId {get;set;}
         public int Distance { get; set; }
         public int RaceNumber { get; set;}
-
-
         public virtual RaceMeet RaceMeet { get; set; }
 
     }

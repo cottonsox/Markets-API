@@ -19,12 +19,14 @@ namespace MarketsAPI.Controllers
         private MarketsContext db = new MarketsContext();
 
         // GET: api/Track
+        [HttpGet]
         public IQueryable<Track> GetTracks()
         {
             return db.Tracks;
         }
 
         // GET: api/Track/5
+        [HttpGet]
         [ResponseType(typeof(Track))]
         public async Task<IHttpActionResult> GetTrack(Guid id)
         {
@@ -38,6 +40,7 @@ namespace MarketsAPI.Controllers
         }
 
         // PUT: api/Track/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTrack(Guid id, Track track)
         {
@@ -73,6 +76,7 @@ namespace MarketsAPI.Controllers
         }
 
         // POST: api/Track
+        [HttpPost]
         [ResponseType(typeof(Track))]
         public async Task<IHttpActionResult> PostTrack(Track track)
         {
@@ -103,6 +107,7 @@ namespace MarketsAPI.Controllers
         }
 
         // DELETE: api/Track/5
+        [HttpDelete]
         [ResponseType(typeof(Track))]
         public async Task<IHttpActionResult> DeleteTrack(Guid id)
         {

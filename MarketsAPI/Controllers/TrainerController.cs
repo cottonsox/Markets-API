@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using MarketsAPI.DAL;
 using MarketsAPI.Models;
 
+
 namespace MarketsAPI.Controllers
 {
     public class TrainerController : ApiController
@@ -19,12 +20,14 @@ namespace MarketsAPI.Controllers
         private MarketsContext db = new MarketsContext();
 
         // GET: api/Trainer
+        [HttpGet]
         public IQueryable<Trainer> GetTrainers()
         {
             return db.Trainers;
         }
 
         // GET: api/Trainer/5
+        [HttpGet]
         [ResponseType(typeof(Trainer))]
         public async Task<IHttpActionResult> GetTrainer(Guid id)
         {
@@ -38,6 +41,7 @@ namespace MarketsAPI.Controllers
         }
 
         // PUT: api/Trainer/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTrainer(Guid id, Trainer trainer)
         {
@@ -73,6 +77,7 @@ namespace MarketsAPI.Controllers
         }
 
         // POST: api/Trainer
+        [HttpPost]
         [ResponseType(typeof(Trainer))]
         public async Task<IHttpActionResult> PostTrainer(Trainer trainer)
         {
@@ -103,6 +108,7 @@ namespace MarketsAPI.Controllers
         }
 
         // DELETE: api/Trainer/5
+        [HttpDelete]
         [ResponseType(typeof(Trainer))]
         public async Task<IHttpActionResult> DeleteTrainer(Guid id)
         {

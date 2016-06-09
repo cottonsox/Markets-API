@@ -17,6 +17,11 @@ namespace MarketsAPI.DAL
         public DbSet<RaceHorse> RaceHorses { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
+
+        public DbSet<RaceResult> RaceResult { get; set; }
+        public DbSet<RaceSectionals> RaceSectionals { get; set; }
+        public DbSet<RaceSectionalsSection> RaceSectionalsSection { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

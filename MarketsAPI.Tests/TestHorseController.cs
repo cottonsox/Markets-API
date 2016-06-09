@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Web;
 using MarketsAPI.Models;
 using MarketsAPI.Controllers;
+using MarketsAPI.Enum;
+
 using System.Collections.Generic;
 
 namespace MarketsAPI.Tests
