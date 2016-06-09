@@ -10,7 +10,7 @@ namespace MarketsAPI.Models
     
    public class Horse
     {
-        public Guid id{ get; set; }
+        public Guid Id{ get; set; }
         public string Name { get; set;}
         public int Age { get; set; }
         public HorseGender Gender { get; set; }
