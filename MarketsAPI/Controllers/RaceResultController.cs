@@ -21,7 +21,6 @@ namespace MarketsAPI.Controllers
 
         // GET: api/RaceResult
         [HttpGet]
-        [Route("RaceResult")]
         public string GetRaceResults()
         {
             return SerialiseRaceResult(db.RaceResult);
@@ -30,7 +29,6 @@ namespace MarketsAPI.Controllers
         // GET: api/RaceResult/5
         [HttpGet]
         [ResponseType(typeof(RaceResult))]
-        [Route("RaceResult/{id}")]
         public async Task<IHttpActionResult> GetRaceResult(Guid id)
         {
             RaceResult RaceResult = await db.RaceResult.FindAsync(id);
@@ -45,7 +43,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/RaceResult/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("RaceResult/{id}")]
         public async Task<IHttpActionResult> PutRaceResult([FromBody] RaceResult RaceResult)
         {
             if (!ModelState.IsValid)
@@ -77,7 +74,6 @@ namespace MarketsAPI.Controllers
         // POST: api/RaceResult
         [HttpPost]
         [ResponseType(typeof(RaceResult))]
-        [Route("RaceResult/{id}")]
         public async Task<IHttpActionResult> PostRaceResult([FromBody] RaceResult RaceResult)
         {
             if (!ModelState.IsValid)
@@ -109,7 +105,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/RaceResult/5
         [HttpDelete]
         [ResponseType(typeof(RaceResult))]
-        [Route("RaceResult/{id}")]
         public async Task<IHttpActionResult> DeleteRaceResult(Guid Id)
         {
             RaceResult RaceResult = await db.RaceResult.FindAsync(Id);
@@ -123,7 +118,6 @@ namespace MarketsAPI.Controllers
 
             return Ok(RaceResult);
         }
-
 
         private bool RaceResultExists(Guid Id)
         {

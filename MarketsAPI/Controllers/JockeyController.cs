@@ -21,8 +21,7 @@ namespace MarketsAPI.Controllers
         private MarketsContext db = new MarketsContext();
 
         // GET: api/Jockey
-        [HttpGet]
-        [Route("Jockey")]
+        [HttpGet]        
         public string GetJockeys()
         {
             
@@ -32,7 +31,6 @@ namespace MarketsAPI.Controllers
         // GET: api/Jockey/5
         [HttpGet]
         [ResponseType(typeof(Jockey))]
-        [Route("Jockey/{id}")]
         public async Task<IHttpActionResult> GetJockey(Guid id)
         {
             Jockey jockey = await db.Jockeys.FindAsync(id);
@@ -47,7 +45,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/Jockey/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("Jockey/{id}")]
         public async Task<IHttpActionResult> PutJockey([FromBody] Jockey jockey)
         {
             if (!ModelState.IsValid)
@@ -79,7 +76,6 @@ namespace MarketsAPI.Controllers
         // POST: api/Jockey
         [HttpPost]
         [ResponseType(typeof(Jockey))]
-        [Route("Jockey/{id}")]
         public async Task<IHttpActionResult> PostJockey([FromBody] Jockey jockey)
         {
             if (!ModelState.IsValid)
@@ -111,7 +107,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/Jockey/5
         [HttpDelete]
         [ResponseType(typeof(Jockey))]
-        [Route("Jockey/{id}")]
         public async Task<IHttpActionResult> DeleteJockey(Guid Id)
         {
             Jockey jockey = await db.Jockeys.FindAsync(Id);

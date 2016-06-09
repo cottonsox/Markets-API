@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -21,17 +19,14 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Trainer
         [HttpGet]
-        [Route("Trainer")]
         public string GetTrainers()
-        {
-            
+        {            
             return SerialiseTrainers(db.Trainers);
         }
 
         // GET: api/Trainer/5
         [HttpGet]
         [ResponseType(typeof(Trainer))]
-        [Route("Trainer/{id}")]
         public async Task<IHttpActionResult> GetTrainer(Guid Id)
         {
             Trainer trainer = await db.Trainers.FindAsync(Id);
@@ -46,7 +41,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/Trainer/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("Trainer/{id}")]
         public async Task<IHttpActionResult> PutTrainer([FromBody] Trainer Trainer)
         {
             if (!ModelState.IsValid)
@@ -79,7 +73,6 @@ namespace MarketsAPI.Controllers
         // POST: api/Trainer
         [HttpPost]
         [ResponseType(typeof(Trainer))]
-        [Route("Trainer/{id}")]
         public async Task<IHttpActionResult> PostTrainer([FromBody] Trainer Trainer)
         {
             if (!ModelState.IsValid)
@@ -111,7 +104,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/Trainer/5
         [HttpDelete]
         [ResponseType(typeof(Trainer))]
-        [Route("Trainer/{id}")]
         public async Task<IHttpActionResult> DeleteTrainer(Guid Id)
         {
             Trainer trainer = await db.Trainers.FindAsync(Id);

@@ -21,7 +21,6 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Race
         [HttpGet]
-        [Route("Races}")]
         public string GetRaces()
         {
             return SerialiseRaces(db.Races);
@@ -30,7 +29,6 @@ namespace MarketsAPI.Controllers
         // GET: api/Race/5
         [HttpGet]
         [ResponseType(typeof(Race))]
-        [Route("Races/{id}")]
         public async Task<IHttpActionResult> GetRace(Guid id)
         {
             Race race = await db.Races.FindAsync(id);
@@ -45,7 +43,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/Race/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("Races/{id}")]
         public async Task<IHttpActionResult> PutRace([FromBody] Race Race)
         {
             if (!ModelState.IsValid)
@@ -77,7 +74,6 @@ namespace MarketsAPI.Controllers
         // POST: api/Race
         [HttpPost]
         [ResponseType(typeof(Race))]
-        [Route("Races/{id}")]
         public async Task<IHttpActionResult> PostRace([FromBody] Race race)
         {
             if (!ModelState.IsValid)
@@ -109,7 +105,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/Race/5
         [HttpDelete]
         [ResponseType(typeof(Race))]
-        [Route("Races/{id}")]
         public async Task<IHttpActionResult> DeleteRace(Guid id)
         {
             Race race = await db.Races.FindAsync(id);

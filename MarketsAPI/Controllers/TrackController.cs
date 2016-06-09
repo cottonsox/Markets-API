@@ -21,7 +21,6 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Track
         [HttpGet]
-        [Route("Track")]
         public string GetTracks()
         {
             
@@ -31,7 +30,6 @@ namespace MarketsAPI.Controllers
         // GET: api/Track/5
         [HttpGet]
         [ResponseType(typeof(Track))]
-        [Route("Track/{id}")]
         public async Task<IHttpActionResult> GetTrack(Guid id)
         {
             Track track = await db.Tracks.FindAsync(id);
@@ -46,7 +44,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/Track/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("Track/{id}")]
         public async Task<IHttpActionResult> PutTrack([FromBody] Track Track)
         {
             if (!ModelState.IsValid)
@@ -78,7 +75,6 @@ namespace MarketsAPI.Controllers
         // POST: api/Track
         [HttpPost]
         [ResponseType(typeof(Track))]
-        [Route("Track/{id}")]
         public async Task<IHttpActionResult> PostTrack(Track Track)
         {
             if (!ModelState.IsValid)
@@ -110,7 +106,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/Track/5
         [HttpDelete]
         [ResponseType(typeof(Track))]
-        [Route("Track/{id}")]
         public async Task<IHttpActionResult> DeleteTrack(Guid Id)
         {
             Track track = await db.Tracks.FindAsync(Id);

@@ -21,7 +21,6 @@ namespace MarketsAPI.Controllers
 
         // GET: api/RaceSectional
         [HttpGet]
-        [Route("RaceSectionals")]
         public string GetRaceSectionals()
         {
             return SerialiseRaceSectional(db.RaceSectionals);
@@ -30,7 +29,6 @@ namespace MarketsAPI.Controllers
         // GET: api/RaceSectional/5
         [HttpGet]
         [ResponseType(typeof(RaceSectionals))]
-        [Route("RaceSectionals/{id}")]
         public async Task<IHttpActionResult> GetRaceSectional(Guid id)
         {
             RaceSectionals RaceSectionals = await db.RaceSectionals.FindAsync(id);
@@ -45,7 +43,6 @@ namespace MarketsAPI.Controllers
         // PUT: api/RaceSectional/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        [Route("RaceSectionals/{id}")]
         public async Task<IHttpActionResult> PutRaceSectional([FromBody] RaceSectionals RaceSectionals)
         {
             if (!ModelState.IsValid)
@@ -77,7 +74,6 @@ namespace MarketsAPI.Controllers
         // POST: api/RaceSectional
         [HttpPost]
         [ResponseType(typeof(RaceSectionals))]
-        [Route("RaceSectionals/{id}")]
         public async Task<IHttpActionResult> PostRaceSectional([FromBody] RaceSectionals RaceSectionals)
         {
             if (!ModelState.IsValid)
@@ -109,7 +105,6 @@ namespace MarketsAPI.Controllers
         // DELETE: api/RaceSectional/5
         [HttpDelete]
         [ResponseType(typeof(RaceSectionals))]
-        [Route("RaceSectionals/{id}")]
         public async Task<IHttpActionResult> DeleteRaceSectional(Guid Id)
         {
             RaceSectionals RaceSectional = await db.RaceSectionals.FindAsync(Id);
@@ -123,7 +118,6 @@ namespace MarketsAPI.Controllers
 
             return Ok(RaceSectional);
         }
-
 
         private bool RaceSectionalExists(Guid Id)
         {
