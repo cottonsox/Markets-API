@@ -1,18 +1,18 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using System.Web;
 using MarketsAPI.Models;
 using MarketsAPI.Controllers;
 using MarketsAPI.Enum;
-
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MarketsAPI.Tests
 {
     [TestClass]
     public class TestHorseController
     {
+        public object JsonConvert { get; private set; }
+
         [TestMethod]
         public void GetAllHorses()
         {
@@ -20,11 +20,11 @@ namespace MarketsAPI.Tests
             var Controller = new HorseController();
 
           //  var result = Controller.GetHorses() as string;
-            //Assert.AreEqual(testHorse.Count, result.Count);
+         //  Assert.AreEqual(testHorse.Count, result.Count);
             
         }
 
-        private List<Horse> GetTestHorses()
+        private String GetTestHorses()
         {
             var TestHorses = new List<Horse>();
 
@@ -33,7 +33,9 @@ namespace MarketsAPI.Tests
             TestHorses.Add(new Horse { Name = "Under The Lourve", Age = 5, Gender = HorseGender.Stallion });
             TestHorses.Add(new Horse { Name = "Malaguerra", Age = 4, Gender = HorseGender.Gelding });
 
-            return TestHorses;
+            return string.Empty;
+            //return JsonConvert.SerializeObject(TestHorses);
+
         }
     }
 }
