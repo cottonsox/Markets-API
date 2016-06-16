@@ -133,7 +133,7 @@
     <Compile Include="Controllers\RaceHorseController.cs" />
     <Compile Include="Controllers\RaceMeetController.cs" />
     <Compile Include="Controllers\RaceResultController.cs" />
-    <Compile Include="Controllers\RaceSectionalController.cs" />
+    <Compile Include="Controllers\RaceSectionalsController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="DAL\MarketsContext.cs" />
@@ -145,9 +145,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606091403142_Initial.cs" />
-    <Compile Include="Migrations\201606091403142_Initial.Designer.cs">
-      <DependentUpon>201606091403142_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201606110041413_initial.cs" />
+    <Compile Include="Migrations\201606110041413_initial.Designer.cs">
+      <DependentUpon>201606110041413_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Horse.cs" />
@@ -174,8 +174,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606091403142_Initial.resx">
-      <DependentUpon>201606091403142_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606110041413_initial.resx">
+      <DependentUpon>201606110041413_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

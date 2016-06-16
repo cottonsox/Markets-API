@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketsAPI.Models
 {
-    public class RaceHorse 
+    public class RaceHorse
     {
         public Guid id { get; set; }
         public Guid RaceId {get;set;}
@@ -22,3 +22,4 @@ namespace MarketsAPI.Models
         public virtual Trainer Trainer { get; set; }
     }
 }
+ 

@@ -18,7 +18,7 @@ namespace MarketsAPI.Tests
         {
             var testHorse = GetTestHorses();
             var Controller = new HorseController();
-
+             
           //  var result = Controller.GetHorses() as string;
          //  Assert.AreEqual(testHorse.Count, result.Count);
             
@@ -29,7 +29,7 @@ namespace MarketsAPI.Tests
             var TestHorses = new List<Horse>();
 
             TestHorses.Add(new Horse { Name = "Admiral", Age = 4, Gender = HorseGender.Gelding });
-            TestHorses.Add(new Horse { Name = "Black Heart Bar", Age = 5, Gender = HorseGender.Gelding });
+            TestHorses.Add(new Horse { Name = "Black Heart Bart", Age = 5, Gender = HorseGender.Gelding });
             TestHorses.Add(new Horse { Name = "Under The Lourve", Age = 5, Gender = HorseGender.Stallion });
             TestHorses.Add(new Horse { Name = "Malaguerra", Age = 4, Gender = HorseGender.Gelding });
 

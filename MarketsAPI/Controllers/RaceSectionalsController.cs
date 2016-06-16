@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace MarketsAPI.Controllers
 {
-    public class RaceSectionalController : ApiController
+    public class RaceSectionalsController : ApiController
     {
         private MarketsContext db = new MarketsContext();
 
