@@ -1,5 +1,6 @@
 namespace MarketsAPI.Migrations
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -54,6 +55,8 @@ namespace MarketsAPI.Migrations
                 new Jockey { Id = Guid.NewGuid(), FirstName = "Damien", Surname = "Oliver", Gender = Gender.Male }
 
                 );
+
+            
         }
     }
 }

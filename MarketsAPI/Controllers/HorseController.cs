@@ -21,6 +21,7 @@ namespace MarketsAPI.Controllers
 
         // GET: api/Horse
         [HttpGet]
+        //[Authorize]  for later.
         public string GetHorses()
         {
             return SerialiseHorses(db.Horses);

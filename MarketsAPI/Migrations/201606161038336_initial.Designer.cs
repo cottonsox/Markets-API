@@ -13,7 +13,7 @@ namespace MarketsAPI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201606110041413_initial"; }
+            get { return "201606161038336_initial"; }
         }
         
         string IMigrationMetadata.Source
