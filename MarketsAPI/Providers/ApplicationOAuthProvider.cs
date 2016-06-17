@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using MarketsAPI.Models;
-using MarketsAPI.DAL;
+using MarketsAPI.Data;
 
 namespace MarketsAPI.Providers
 {

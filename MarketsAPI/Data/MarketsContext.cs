@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 
-namespace MarketsAPI.DAL
+namespace MarketsAPI.Data
 {
     class MarketsContext : IdentityContext
     {

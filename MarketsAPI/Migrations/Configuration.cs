@@ -9,14 +9,14 @@ namespace MarketsAPI.Migrations
     using MarketsAPI.Enum;
 
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MarketsAPI.DAL.MarketsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MarketsAPI.Data.MarketsContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MarketsAPI.DAL.MarketsContext context)
+        protected override void Seed(MarketsAPI.Data.MarketsContext context)
         {
             //  This method will be called after migrating to the latest version.
 

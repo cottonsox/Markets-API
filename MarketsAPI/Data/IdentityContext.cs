@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace MarketsAPI.DAL
+namespace MarketsAPI.Data
 {
     public class ApplicationUser : IdentityUser
     {
